@@ -1,0 +1,6 @@
+{
+  "name": "PMP Exam Prep Simulator",
+  "description": "An interactive, premium-grade study and mock exam simulator containing 180 realistic exam questions covering all three domains of the PMI PMP Exam Content Outline.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
