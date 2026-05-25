@@ -24,6 +24,12 @@ export default function PracticeMode({ onSaveToHistory, onNavigateHome }: Practi
   const [isPracticeStarted, setIsPracticeStarted] = useState<boolean>(false);
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const [startTime, setStartTime] = useState<number>(0);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Clear error message when filters change
+  useEffect(() => {
+    setErrorMessage(null);
+  }, [selectedDomain, selectedMethodology, practiceLength]);
 
   // Initialize practice set
   const startPractice = () => {
@@ -41,7 +47,7 @@ export default function PracticeMode({ onSaveToHistory, onNavigateHome }: Practi
     const selected = shuffled.slice(0, Math.min(practiceLength, shuffled.length));
 
     if (selected.length === 0) {
-      alert('No questions matched the selected combination of filters. Please adjust and try again.');
+      setErrorMessage(`No questions matched the selected combination of filters (${selectedDomain} / ${selectedMethodology}). Please adjust and try again.`);
       return;
     }
 
@@ -190,6 +196,13 @@ export default function PracticeMode({ onSaveToHistory, onNavigateHome }: Practi
               </div>
             </div>
           </div>
+
+          {errorMessage && (
+            <div className="bg-red-50 border border-red-200 rounded-2xl p-4 text-xs text-red-800 font-sans leading-relaxed animate-fade-in flex items-start gap-2.5">
+              <span className="font-bold shrink-0 bg-red-850 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] select-none">!</span>
+              <span>{errorMessage}</span>
+            </div>
+          )}
 
           <div className="flex justify-between items-center bg-slate-50 border border-slate-100 rounded-2xl p-4">
             <span className="text-xs text-slate-600 font-sans flex items-center gap-1.5">
